@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+<h3>ParameterDemo</h3>
+
+<InputText Value="@RacconsAreAwesome" />
+
+@code {
+    string RacconsAreAwesome = string.Empty;
+
+    [Parameter]
+    public string Parameter1 { get; set; }
+
+    [Parameter, EditorRequired]
+    //EditorRequired -Razor editor will demand that we need to supply this parameter
+    public required string Parameter2 { get; set; }
+
+    [SupplyParameterFromQuery(Name = "ParameterName")]
+    // We will get that value from the query string
+    public required string Parameter3 { get; set; }
+}
