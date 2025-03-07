@@ -1,0 +1,24 @@
+﻿@page "/pagedemo";
+@page "/pagedemoagain";
+@page "/pagedemo/{Variable}";
+@page "/pagedemo/{IntVariable:int}";  
+@* ako je int variable onda će targetirati tu rutu *@
+
+<h3>PageDemo</h3>
+
+
+<strong>String Value:</strong> @(Variable ?? "No string variable")
+<br />
+<strong>Int Value:</strong> @(IntVariable.HasValue ? IntVariable:  "No int variable")
+<br />
+<strong>First name:</strong> @(FirstName ?? "No First Name added")
+@code {
+    [Parameter]
+    public string? Variable { get; set; }
+
+    [Parameter]
+    public int? IntVariable { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public string? FirstName { get; set; }
+}
