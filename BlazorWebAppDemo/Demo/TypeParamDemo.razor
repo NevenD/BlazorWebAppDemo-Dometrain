@@ -1,0 +1,14 @@
+﻿@page "/TypeParamDemo"
+<h3>TypeParamDemo</h3>
+
+<MyList TItem="string" Items="@data" />
+<MyList Items="@data2" />
+
+@*  in most cases we can remove TItem, sometimes we need to add type to help Blazor figure it out *@
+<MyList  Items="@data" />
+
+@code {
+    private List<string> data = new List<string> { "apple", "banana", "cherry" };
+    private List<int> data2 = new List<int> { 123, 322, 43343,343,33 };
+
+}

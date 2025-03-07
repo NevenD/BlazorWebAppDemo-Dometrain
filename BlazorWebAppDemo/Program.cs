@@ -12,7 +12,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddTransient<IMyService, MyService>();
 
 
-/*  Scoped - New instance per circuit in Blazor Server and one instance for Blaor WebAssembly as long as the app is loaded
+/*  Scoped - New instance per circuit in Blazor Server and one instance for Blazor WebAssembly as long as the app is loaded
 builder.Services.AddScoped<IMyService, MyService>();
 */
 
