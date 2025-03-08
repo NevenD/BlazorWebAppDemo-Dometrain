@@ -1,0 +1,7 @@
+﻿
+<button @attributes="AdditionalAttributes">Click me</button>
+
+@code {
+    [Parameter(CaptureUnmatchedValues = true)] // CaptureUnmatchedValues - any attribute that is not defined (does not have matching component) in the component will be captured here
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
+}

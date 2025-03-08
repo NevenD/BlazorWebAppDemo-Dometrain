@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Authorization
+
+
+@* instead of page directive we can use routeattribute directly *@
+@attribute [RouteAttribute("/AttributeDemo")]
+
+
+@attribute [Authorize]
+
+<h3>AttributeDemo</h3>
+
+@code {
+
+}
