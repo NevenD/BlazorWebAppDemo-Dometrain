@@ -1,7 +1,17 @@
 ﻿
-<button @attributes="AdditionalAttributes">Click me</button>
+<button @attributes="AdditionalAttributes" @onclick="OnButtonClickedAsync">Click me</button>
 
 @code {
     [Parameter(CaptureUnmatchedValues = true)] // CaptureUnmatchedValues - any attribute that is not defined (does not have matching component) in the component will be captured here
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
+
+    [Parameter]
+    public EventCallback OnClickEvent { get; set; }
+
+    private async Task OnButtonClickedAsync() {
+
+        // no null cchecks needed since it is as truct
+        await OnClickEvent.InvokeAsync(null);
+    }
+
 }
