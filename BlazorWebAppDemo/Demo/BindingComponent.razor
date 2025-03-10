@@ -1,0 +1,24 @@
+﻿@using System.Linq.Expressions
+<h3>Binding component</h3>
+
+
+
+<button @onclick="UpdateValueAsync">UpdateMe</button>
+
+@code{
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; } //we should follow convention, it can be changed the name of the property
+    [Parameter]
+    public Expression<Func<string>> ValueExpression { get; set; }
+
+
+    private async Task UpdateValueAsync(){
+
+        // value will update parent component
+        Value = DateTime.Now.ToString();
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+}

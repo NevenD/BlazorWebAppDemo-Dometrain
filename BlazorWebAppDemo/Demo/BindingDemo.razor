@@ -1,0 +1,34 @@
+﻿@page "/BindingDemo"
+@rendermode InteractiveServer
+<h3>BindingDemo</h3>
+
+
+<input type="text" @bind="TextValue1" /> @TextValue1
+<br />
+<br />
+@* default @bind-value:event="onchange" when we leave input field *@
+<input type="text" @bind-value="TextValue2" @bind-value:event="oninput"/> @TextValue2
+<br />
+<br />
+@* this will run a method after we tab out   *@
+<input type="text" @bind-value="TextValue3" @bind-value:after="@(()=> {TextValue3 = TextValue3 + " After";})" /> @TextValue3
+
+<br />
+<br />
+@* it will set value after we tab out  *@
+<input type="text" 
+    @bind-value:set="@((newvalue) => TextValue4=newvalue)"
+     @bind-value:get="TextValue4"
+/> @TextValue4
+<br />
+<br />
+@* blazor has custom elements, we ll use nativ html elements mostly *@
+<InputText @bind-Value="@TextValue5" />@TextValue5
+
+@code {
+    string TextValue1 = "VariableTest-1"; //on way binding
+    string TextValue2 = "";
+    string TextValue3 = "";
+    string TextValue4 = "";
+    string TextValue5 = "";
+}

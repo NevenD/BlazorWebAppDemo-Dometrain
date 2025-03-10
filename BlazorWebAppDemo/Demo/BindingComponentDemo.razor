@@ -1,0 +1,24 @@
+﻿@page "/BindingComponentDemo"
+@rendermode InteractiveServer
+
+
+
+<BindingComponent Value="@bindingComponentValue1" />@bindingComponentValue1
+<br />
+<br />
+<BindingComponent @bind-Value="@bindingComponentValue2" />@bindingComponentValue2
+<br />
+<br />
+<BindingComponent Value="@bindingComponentValue3" ValueChanged="ValueChangedMethod"/>@bindingComponentValue3
+
+
+@code {
+    string bindingComponentValue1 = "Before Update 1";
+    string bindingComponentValue2 = "Before Update 2";
+    string bindingComponentValue3 = "Before Update 3";
+
+    private void ValueChangedMethod(string value) {
+        bindingComponentValue3 = value;
+    }
+
+}
