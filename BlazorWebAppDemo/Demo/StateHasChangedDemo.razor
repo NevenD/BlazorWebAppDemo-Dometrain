@@ -1,0 +1,18 @@
+﻿@page "/StateHasChangedDemo"
+@rendermode InteractiveServer 
+
+
+<h3>StateHasChangedDemo</h3>
+@currentTime.ToLongTimeString()
+@code {
+        TimeOnly currentTime;
+        System.Threading.Timer timer;
+
+    protected override void OnInitialized()
+    {
+        timer = new System.Threading.Timer(async _ => {
+            currentTime = TimeOnly.FromDateTime(DateTime.Now);
+            await InvokeAsync(StateHasChanged); // inside on another thread i want to run StateHasChanged method on UI thread
+        }, null, 0, 1000);
+}
+}
