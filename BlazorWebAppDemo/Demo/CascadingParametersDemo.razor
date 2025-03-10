@@ -1,0 +1,47 @@
+﻿@page "/CascadingParametersDemo"
+@rendermode InteractiveServer
+
+<h3>CascadingParametersDemo</h3>
+
+<h2>No Cascading</h2>
+<NoCascadingParameters Parameter="@ValueToCascade"></NoCascadingParameters>
+<NoCascadingParameters Parameter="@ValueToCascade"></NoCascadingParameters>
+<NoCascadingParameters Parameter="@ValueToCascade"></NoCascadingParameters>
+
+<h2>With Cascading</h2>
+<CascadingValue Value="@ValueToCascade">
+    <WithCascadingParameters />
+    <WithCascadingParameters />
+    <WithCascadingParameters />
+</CascadingValue>
+
+<h2>With Cascading and Name</h2>
+@* we can do it withput the name CParameter but in that Case we need only  [CascadingParameter] without the nameProperty*@
+<CascadingValue Value="@ValueToCascade" Name="CParameter">
+    <WithCascadingParametersAndName />
+    <WithCascadingParametersAndName />
+    <WithCascadingParametersAndName />
+</CascadingValue>
+
+@* if we now that value is not goint to change, we can improve performance by is isFixedParameter *@
+<h2>With Cascading and fixed</h2>
+<CascadingValue Value="@ValueToCascade" IsFixed="true">
+    <WithCascadingParameters />
+    <WithCascadingParameters />
+    <WithCascadingParameters />
+</CascadingValue>
+
+<h2>Root level Cascading</h2>
+@* We  are not providing any value becauase it provided by Program.cs in AddCascadingValue service *@
+<WithRootLevelCascadin></WithRootLevelCascadin>
+<WithRootLevelCascadin></WithRootLevelCascadin>
+
+<button @onclick="@UpdateValue">Update Value</button>
+@code {
+    string ValueToCascade = "Hello";
+    void UpdateValue()
+    {
+        ValueToCascade = "Hello World";
+    }
+
+}

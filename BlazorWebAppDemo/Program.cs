@@ -1,5 +1,7 @@
 using BlazorWebAppDemo.Components;
+using BlazorWebAppDemo.Demo;
 using BlazorWebAppDemo.Services.Services;
+using Microsoft.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+
+builder.Services.AddCascadingValue(sp =>
+{
+    var model = new CascadingModel
+    {
+        SomeText = "Hello from Cascading Value"
+    };
+
+    //creating cascading value source that is not fix becuase we want it to update when the property changes
+    var source = new CascadingValueSource<CascadingModel>(model, isFixed: false);
+    //we are listening any changes to the property 
+    model.PropertyChanged += (sender, args) =>
+    {
+        source.NotifyChangedAsync();
+    };
+
+    return source;
+});
 
 //Transient - New instance everytime we ask for one
 builder.Services.AddTransient<IMyService, MyService>();
