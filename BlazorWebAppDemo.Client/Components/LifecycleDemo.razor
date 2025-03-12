@@ -1,0 +1,82 @@
+﻿@page "/LifecycleDemo"
+@page "/LifecycleDemo/{Parameter}"
+@* @rendermode InteractiveServer dali smo na app route interactive server *@
+
+<h3>LifecycleDemo</h3>
+@DateTime.Now
+<br />
+@foreach (var e in Events)
+{
+    <div> @e </div>
+}
+
+<a class="btn btn-primary" href="@($"/LifecycleDemo/{Guid.NewGuid()}")">Refresh</a>
+
+@code {
+    List<string> Events = new();
+
+    [Parameter]
+    public string? Parameter { get; set; }
+
+    public void LogEvent(string eventName)
+    {
+        Events.Add($"{eventName} Start");
+        Events.Add($"{eventName} End");
+    }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        LogEvent("SetParametersAsync");
+        return base.SetParametersAsync(parameters);
+    }
+
+    // it will run when our component is first created, it will run on ly once when the component is rendered
+    protected async override void OnInitialized()
+    {
+        LogEvent("OnInitialized");
+    }
+
+    // it is similar to OnInitialized but if we are running async methods, we should use OnInitializedAsync
+    protected override Task OnInitializedAsync()
+    {
+        LogEvent("OnInitializedAsync");
+        return base.OnInitializedAsync();
+    }
+
+    // on parameter set methods will run when when initial setup is done and wnenever component parameters are changed
+    //
+    protected override void OnParametersSet()
+    {
+        LogEvent("OnParametersSet");
+        base.OnParametersSet();
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        LogEvent("OnParametersSetAsync");
+        return base.OnParametersSetAsync();
+    }
+
+
+    // it will run after the component is rendered
+    // add intereactions, triggering javascript calls
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Events.Add($"OnAfterRender is first render:{firstRender}");
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        Events.Add($"OnAfterRenderAsync is first render:{firstRender}");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+
+    // here we can add some logic to decide if the component should render or not
+    protected override bool ShouldRender()
+    {
+        Events.Add("ShouldRender");
+        return true;
+    }
+
+}
