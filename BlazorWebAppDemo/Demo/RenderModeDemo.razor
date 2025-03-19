@@ -1,0 +1,17 @@
+﻿@page "/RenderModeDemo"
+@using BlazorWebAppDemo.Client.Components
+
+<h3>RenderModeDemo</h3>
+
+<NewCounter />
+
+<NewCounter @rendermode="InteractiveServer"/>
+<NewCounter @rendermode="InteractiveWebAssembly" />
+<NewCounter @rendermode="@(new InteractiveAutoRenderMode(prerender: false))" />
+<NewCounter @rendermode="@(new InteractiveAutoRenderMode(prerender: true))" />
+
+
+
+@code {
+
+}

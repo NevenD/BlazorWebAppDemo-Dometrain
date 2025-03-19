@@ -13,7 +13,11 @@
 </head>
 
 <body>
-    <Routes @rendermode="InteractiveServer"/>
+    @* /if we don't want to run prerendering this is a way to turn it off, by default is true. It is recommended to use it as true *@
+    @* <Routes @rendermode="new InteractiveAutoRenderMode(prerender: false)"/> *@
+    <Routes  />
+
+    @* if we use without directive, it will use SSR, not interactivty at all *@
     <script src="_framework/blazor.web.js"></script>
 </body>
 
