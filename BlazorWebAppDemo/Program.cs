@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using Blazored.SessionStorage;
 using BlazorWebAppDemo.Components;
 using BlazorWebAppDemo.Demo;
+using BlazorWebAppDemo.Demo.Database.Data.Extensions;
 using BlazorWebAppDemo.Services.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -36,6 +37,9 @@ builder.Services.AddCascadingValue(sp =>
 
 //Transient - New instance everytime we ask for one
 builder.Services.AddTransient<IMyService, MyService>();
+
+//Database demo
+builder.Services.AddTodoService();
 
 
 /*  Scoped - New instance per circuit in Blazor Server and one instance for Blazor WebAssembly as long as the app is loaded

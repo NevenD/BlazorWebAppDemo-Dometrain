@@ -1,0 +1,70 @@
+﻿@using BlazorWebAppDemo.Demo.Database.Data
+@using BlazorWebAppDemo.Demo.Database.Data.EntityFramework
+@page "/todolist"
+@rendermode InteractiveServer
+@inject ITodoService service
+
+<h3>TodoList</h3>
+
+
+@foreach (var item in Items)
+{
+    <div>@item.Title</div>
+}
+
+<EditForm Model="@todoItem" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />    
+
+   
+    <div class="mb-3">
+        <label for="state" class="form-label">State</label>
+        <InputSelect id="state" class="form-control" @bind-Value="todoItem.State">
+            @foreach(var state in Enum.GetNames(typeof(TodoState)))
+            {
+                <option value="@state">@state</option>
+            }
+        </InputSelect>
+    </div>
+
+    <div class="mb-3">
+        <label for="dueDate" class="form-label">Due Date</label>
+        <InputDate id="dueDate" class="form-control" @bind-Value="todoItem.DueDate" />
+    </div>
+
+    <div class="mb-3">
+        <label for="assignedTo" class="form-label">Assigned To</label>
+        <InputText id="assignedTo" class="form-control" @bind-Value="todoItem.AssignedTo" />
+    </div>
+
+    <div class="mb-3">
+        <label for="effort" class="form-label">Effort</label>
+        <InputSelect id="effort" class="form-control" @bind-Value="todoItem.Effort">
+            @foreach (var state in Enum.GetNames(typeof(TShirtSize)))
+            {
+                <option value="@state">@state</option>
+            }
+        </InputSelect>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private TodoItem todoItem = new TodoItem();
+
+    private async Task HandleValidSubmit()
+    {
+        var result = await service.AddTodoItemAsync(todoItem);
+        if (result != null)
+        {
+            Items.Add(result);
+            todoItem = new TodoItem();
+        }
+    }
+
+    public List<TodoItem> Items{ get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Items = await service.GetAllTodoItemsAsync();
+    }
+}
