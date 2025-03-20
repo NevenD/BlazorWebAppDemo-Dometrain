@@ -3,6 +3,7 @@ using Blazored.SessionStorage;
 using BlazorWebAppDemo.Components;
 using BlazorWebAppDemo.Demo;
 using BlazorWebAppDemo.Demo.Database.Data.Extensions;
+using BlazorWebAppDemo.Demo.StateService;
 using BlazorWebAppDemo.Services.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -40,6 +41,10 @@ builder.Services.AddTransient<IMyService, MyService>();
 
 //Database demo
 builder.Services.AddTodoService();
+
+// State management 
+// if we added scoped then onreload it will be lost, if we use 
+builder.Services.AddSingleton<StateService>();
 
 
 /*  Scoped - New instance per circuit in Blazor Server and one instance for Blazor WebAssembly as long as the app is loaded

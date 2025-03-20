@@ -1,0 +1,33 @@
+﻿@page "/stateServiceDemo"
+@inject StateService StateService
+@implements IDisposable
+@rendermode InteractiveServer
+
+<h3>StateServiceDemo</h3>
+
+<ul>
+    @foreach (var message in StateService.GetMessages())
+    {
+        <li>@message</li>
+    }
+</ul>
+
+<button class="btn btn-primary" @onclick="AddMessage">Add Message</button>
+
+
+@code{
+    protected override void OnInitialized()
+    {
+        StateService.OnChange += () => InvokeAsync(StateHasChanged);
+    }
+
+    private void AddMessage()
+    {
+        StateService.AddMessage($"New Message at {DateTime.Now}");
+    }   
+
+    //we need to stop listining to the event and remove the event listener from change event
+    public void Dispose() {
+        StateService.OnChange -= StateHasChanged;
+    }
+}

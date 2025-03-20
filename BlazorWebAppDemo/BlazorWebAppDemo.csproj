@@ -27,4 +27,8 @@
     <Folder Include="Demo\Database\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Demo\StateService\StateServiceDemo2.razor" />
+  </ItemGroup>
+
 </Project>
