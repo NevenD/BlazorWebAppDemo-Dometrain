@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using Blazored.SessionStorage;
 using BlazorWebAppDemo.Components;
 using BlazorWebAppDemo.Demo;
 using BlazorWebAppDemo.Services.Services;
@@ -11,6 +12,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+//Session/Local Storage Demo
+builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddCascadingValue(sp =>
