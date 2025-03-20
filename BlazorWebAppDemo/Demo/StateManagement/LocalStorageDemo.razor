@@ -1,0 +1,26 @@
+﻿@page "/LocalStorageDemo"
+@using Blazored.LocalStorage
+@inject ILocalStorageService sessionStorage
+@rendermode InteractiveServer
+
+<h3>LocalStorageDemo</h3>
+
+<p>@name</p>
+
+@code {
+    string name = "Nothing is set yet.";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // we need to run javascript OnAfterRenderAsync when everything is hooked up
+        await sessionStorage.SetItemAsync("name", "Rocket Racoon");
+        var storedName = await sessionStorage.GetItemAsync<string>("name");
+
+        if (storedName != name)
+        {
+            name = storedName;
+            StateHasChanged();
+        }
+
+    }
+}
