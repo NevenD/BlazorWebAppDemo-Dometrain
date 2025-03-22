@@ -1,11 +1,14 @@
+using Auth0.AspNetCore.Authentication;
 using Blazored.LocalStorage;
 using Blazored.SessionStorage;
+using BlazorWebAppDemo;
 using BlazorWebAppDemo.Components;
 using BlazorWebAppDemo.Demo;
 using BlazorWebAppDemo.Demo.Database.Data.Extensions;
 using BlazorWebAppDemo.Demo.StateService;
 using BlazorWebAppDemo.Services.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+
+// Auth 0
+builder.Services.AddCascadingAuthenticationState();
+builder.Services
+    .AddAuth0WebAppAuthentication(opt =>
+    {
+        opt.Domain = builder.Configuration["Auth0:Authority"] ?? "";
+        opt.ClientId = builder.Configuration["Auth0:ClientId"] ?? "";
+    });
+builder.Services.AddScoped<AuthenticationStateProvider, PersistingServerAuthenticationStateProvider>();
 
 //Session/Local Storage Demo
 builder.Services.AddBlazoredSessionStorage();
