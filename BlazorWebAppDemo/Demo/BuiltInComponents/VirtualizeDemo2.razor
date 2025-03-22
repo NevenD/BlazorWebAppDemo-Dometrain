@@ -1,0 +1,21 @@
+﻿@page "/virtualizeDemo"
+@inject SuperheroRepository Data
+@rendermode InteractiveServer
+<h3>VirtualizeDemo</h3>
+
+<table>
+
+    <Virtualize Items="@Data.GetData()">
+       <tr>
+            <td>@context.Name</td>
+            <td>@context.RealName</td>
+            <td>@context.Powers</td>
+        </tr>
+    </Virtualize>
+
+</table>
+
+
+@code {
+
+}

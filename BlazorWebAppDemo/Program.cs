@@ -4,6 +4,7 @@ using Blazored.SessionStorage;
 using BlazorWebAppDemo;
 using BlazorWebAppDemo.Components;
 using BlazorWebAppDemo.Demo;
+using BlazorWebAppDemo.Demo.BuiltInComponents;
 using BlazorWebAppDemo.Demo.Database.Data.Extensions;
 using BlazorWebAppDemo.Demo.StateService;
 using BlazorWebAppDemo.Services.Services;
@@ -52,6 +53,8 @@ builder.Services.AddCascadingValue(sp =>
 
 //Transient - New instance everytime we ask for one
 builder.Services.AddTransient<IMyService, MyService>();
+
+builder.Services.AddScoped<SuperheroRepository>();
 
 //Database demo
 builder.Services.AddTodoService();

@@ -1,0 +1,36 @@
+﻿@page "/virtualizeDemo2"
+@inject SuperheroRepository Data
+@rendermode InteractiveServer
+<h3>VirtualizeDemo</h3>
+
+<table>
+
+    <Virtualize ItemsProvider="LoadSuperHeroes">
+        <EmptyContent>
+            No Rows to display
+        </EmptyContent>
+        <ChildContent>
+            <tr>
+                <td>@context.Id</td>
+                <td>@context.Name</td>
+                <td>@context.RealName</td>
+                <td>@context.Powers</td>
+            </tr>
+        </ChildContent>
+    </Virtualize>
+
+</table>
+
+
+@code {
+    // it takes items providers request aand this request is handled all by the viruzalized component, component takes this nativly
+    private async ValueTask<ItemsProviderResult<Superhero>> LoadSuperHeroes(ItemsProviderRequest request)
+    {
+        var totalnumberofHeroes = Data.GetDataCount();
+        var numHeroes = Math.Min(request.Count, totalnumberofHeroes - request.StartIndex);
+
+        var heroes = await Data.GetDataAsync(request.StartIndex, numHeroes, request.CancellationToken);
+
+        return new ItemsProviderResult<Superhero>(heroes, totalnumberofHeroes);
+    }
+}
