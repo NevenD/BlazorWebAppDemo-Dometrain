@@ -1,0 +1,28 @@
+﻿@page "/Demos/NavigationManager2"
+@inject NavigationManager navigationManagerService
+@implements IDisposable
+
+<h3>NavigationManager</h3>
+
+@code {
+    private IDisposable registration;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            registration = navigationManagerService.RegisterLocationChangingHandler(LocationChangingHandler);
+        }
+    }
+
+    private ValueTask LocationChangingHandler(LocationChangingContext arg) {
+        Console.WriteLine("LocationChangingHandler");
+        return ValueTask.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        registration?.Dispose();
+    }
+
+}

@@ -1,0 +1,29 @@
+﻿@page "/Demos/NavigationManager"
+@inject NavigationManager navigationManagerService
+
+<h3>NavigationManager</h3>
+
+
+<RefreshTestComponent></RefreshTestComponent>
+<RefreshTestComponent @rendermode="InteractiveServer"></RefreshTestComponent>
+
+@code {
+
+    void ThingToTalkAbout(){
+        navigationManagerService.NavigateTo("NavigationManager2");
+        // with flag, it will force reload the page on navigate
+        navigationManagerService.NavigateTo("NavigationManager2", true);
+
+        var currenturi = navigationManagerService.BaseUri;
+
+
+        var readonlyDictionary = new Dictionary<string, object?>
+        {
+                ["Query1"] = "SomeValue",
+                ["Query2"] = "SomeValue2"
+        };
+
+        var newUri = navigationManagerService.GetUriWithQueryParameters(readonlyDictionary!);
+    }
+
+}

@@ -1,0 +1,8 @@
+﻿@inject NavigationManager navigationManager
+
+<h3>RefreshTestComponent</h3>
+@DateTime.Now.ToLongTimeString()
+
+@* StateHasChanged onyl that component will get updated *@
+<button class="btn btn-primary" @onclick="()=>StateHasChanged()">Refresh component</button>
+<button class="btn btn-primary" @onclick="()=>navigationManager.Refresh()">Refresh page</button>
