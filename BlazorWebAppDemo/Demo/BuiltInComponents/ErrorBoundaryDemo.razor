@@ -1,0 +1,33 @@
+﻿@page "/ErrorBoundary"
+
+<h3>ErrorBoundary</h3>
+<ErrorBoundary>
+    @(1 / zero)
+</ErrorBoundary>
+<br />
+<br />
+<ErrorBoundary>
+    <ChildContent>
+        @(1 / zero)
+    </ChildContent>
+    <ErrorContent>
+        <div class="border p-4 text-danger">
+            My custom error
+        </div>
+    </ErrorContent>
+</ErrorBoundary>
+<br />
+<br />
+<ErrorBoundary Context="ex">
+    <ChildContent>
+        @(1 / zero)
+    </ChildContent>
+    <ErrorContent>
+        My custom error exception<br />
+        @ex.Message
+    </ErrorContent>
+</ErrorBoundary>
+@code {
+    int zero = 0;
+
+}
