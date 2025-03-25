@@ -1,0 +1,32 @@
+﻿@page "/SectionContentDemo"
+@rendermode InteractiveServer
+@using BlazorWebAppDemo.Components.Layout
+@using Microsoft.AspNetCore.Components.Sections
+
+<h3>SectionContentDemo</h3>
+
+
+@* Adding component into section based on id. First we defined section and referenced id and then in the scope of this id we add button, it is good to render different 
+functionalities baded on permission level, for instance if we navigate on this page, we ll see Admin button
+*@
+
+<SectionContent SectionId="MainLayout.TopbarSection">
+ <button class="btn btn-primary">Admin</button>
+</SectionContent>
+
+<SectionContent SectionName="Menu">
+    <NavLink class="nav-link" href="SectionContentDemo">
+        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> SectionContentDemo
+    </NavLink>
+</SectionContent>
+
+<SectionContent SectionName="SubComponent">
+        Ej, pozdrav!
+</SectionContent>
+
+<SubComponent></SubComponent>
+
+
+@code {
+
+}
