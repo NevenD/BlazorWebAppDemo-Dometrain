@@ -1,0 +1,25 @@
+﻿@page "/NavigationLockDemo"
+@rendermode InteractiveServer
+@inject IJSRuntime jsRuntime
+<h3>NavigationLockDemo</h3>
+
+
+@* ConfirmExternalNavigation="true" upozorava nas ako se krenemo navigirati na drugi sajt preko web browsers*@
+<NavigationLock ConfirmExternalNavigation="true" OnBeforeInternalNavigation="OnBeforeInternalNavigationMethod" />
+
+<a href="https://CodingAfterWork.com">External link</a>
+
+@code {
+    public string InternalNavigationMessage { get; set; } = "Are you sure that you want to navigate away?";
+
+    private async Task OnBeforeInternalNavigationMethod(LocationChangingContext context)
+    {
+        var isConfirmed = await jsRuntime.InvokeAsync<bool>("confirm", InternalNavigationMessage);
+
+        if (!isConfirmed)
+        {
+            context.PreventNavigation();
+        }
+    }
+
+}
