@@ -1,6 +1,24 @@
-﻿<Router AppAssembly="typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(Client._Imports).Assembly }">
+﻿
+@* AppAssembly where it should look for routes *@
+@* AdditionalAssemblies in this case it looks for client Assembly *@
+
+<Router 
+    AppAssembly="typeof(Program).Assembly" 
+    AdditionalAssemblies="new[] { typeof(Client._Imports).Assembly }">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+        <RouteView 
+            RouteData="routeData" 
+            DefaultLayout="typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        <h1>404 Not Found</h1>
+        <HeadContent>
+            <meta name="robots" content="noindex" />
+        </HeadContent>
+    </NotFound>
+
+    <Navigating>
+        <p>One moment, we're redirecting you to the requested page...</p>
+    </Navigating>
 </Router>
