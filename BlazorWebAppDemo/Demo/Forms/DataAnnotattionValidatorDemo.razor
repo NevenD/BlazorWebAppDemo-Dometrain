@@ -1,0 +1,61 @@
+﻿@page "/DataAnnotationValidatorDemo"
+@using BlazorWebAppDemo.Demo.BuiltInComponents
+
+<h3>EditFormDemos</h3>
+
+<EditForm Model="@hero">
+
+</EditForm>
+
+@* Alternative way of supplying context since we can trigger context *@
+@* <EditForm EditContext="@heroEditContext">
+
+</EditForm> *@
+
+
+<EditForm Model="@hero"
+    OnInvalidSubmit="InvalidSubmit"
+          OnSubmit="Submit"
+          OnValidSubmit="ValidSubmit">
+
+
+</EditForm>
+
+
+@code {
+    private Superhero hero = new();
+    private EditContext? heroEditContext;
+
+    protected override void OnInitialized()
+    {
+        // on run of the component it will run this code
+
+        heroEditContext = new(hero);
+    }
+
+    private void InvalidSubmit(EditContext editcontext)
+    {
+        // method will be invoked when is invalid on submit
+        Console.WriteLine("Invalid Submit");
+    }
+
+    private void Submit(EditContext editcontext)
+    {
+
+        Console.WriteLine("Submit");
+        FieldIdentifier fieldIdentifier = editcontext.Field("RealName");
+        editcontext.IsValid(fieldIdentifier);
+        editcontext.IsModified(fieldIdentifier);
+        editcontext.MarkAsUnmodified();
+        editcontext.();
+
+    }
+
+
+
+    private void ValidSubmit(EditContext editcontext)
+    {
+        // if everything is ok, then this method will be triggered and data will be saved
+    }
+
+}
