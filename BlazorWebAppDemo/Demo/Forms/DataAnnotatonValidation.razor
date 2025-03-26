@@ -1,0 +1,33 @@
+﻿@page "/DataAnnotationValidation"
+@rendermode InteractiveServer
+@using BlazorWebAppDemo.Demo.BuiltInComponents
+
+<h3>EditFormDemos</h3>
+
+<EditForm Model="@hero" OnValidSubmit="ValidSubmit">
+    <DataAnnotationsValidator/>
+    <InputText @bind-Value="hero.Name" /><br />
+    <ValidationMessage For="(()=>hero.Name)" />
+    <InputText @bind-Value="hero.RealName" /><br />
+    <InputText @bind-Value="hero.Powers" /><br />
+
+    @* <InputText @bind-Value="hero.Powers" this is similar to line below @bind-Value will hook up Value, ValueChanged and ValueExpression by default *@
+    <InputText Value="@hero.Powers" 
+               ValueChanged="(value)=>hero.Powers=value"
+               ValueExpression="@(()=>hero.Powers)" />
+
+@* Check editform context and show all validation messages in a list *@
+<ValidationSummary/>
+<button class="btn btn-outline-primary" type="submit">Submit</button>
+</EditForm>
+
+
+@code {
+    private Superhero hero = new();
+
+    private void ValidSubmit(EditContext editcontext)
+    {
+        // if everything is ok, then this method will be triggered and data will be saved
+    }
+
+}
