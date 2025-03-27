@@ -1,0 +1,78 @@
+﻿@page "/InputTextDemo"
+@rendermode InteractiveServer
+
+<h3>InputTextDemo</h3>
+
+
+<InputText @bind-Value="@value" />
+
+<InputTextArea @bind-Value="@value" rows="10"/>
+
+<InputCheckbox @bind-Value="@isChecked" />
+
+<InputDate @bind-Value="@date" />
+
+<InputFile OnChange="Changed" multiple />
+
+<InputNumber @bind-Value="@number" />
+
+<InputRadioGroup @bind-Value="favoriteComic.Selection">
+    <h3>Select your favorite comic universe:</h3>
+    @foreach (var universe in favoriteComic.ComicUniverses)
+    {
+        <InputRadio Value="@universe" /> @universe
+
+        <br />
+    }
+</InputRadioGroup>
+
+
+<p>You selected: @favoriteComic.Selection</p>
+
+
+<label for="comicSelect">Select your favorite comic universe:</label>
+<InputSelect id="comicSelect" @bind-Value="favoriteInputSelectComic.Selection">
+    @foreach (var universe in favoriteInputSelectComic.ComicUniverses)
+    {
+        <option value="@universe">@universe</option>
+    }
+</InputSelect>
+
+<p>You selected: @favoriteInputSelectComic.Selection</p>
+
+
+@code {
+    string value = "Hello World";
+    private bool isChecked = true;
+
+    private short number = 26;
+    private DateTime date = DateTime.Now;
+
+
+    private void Changed(InputFileChangeEventArgs e) 
+    {
+        foreach (var file in e.GetMultipleFiles())
+        {
+            Console.WriteLine($"File name: {file.Name}");
+            Console.WriteLine($"File size: {file.Size}");
+            Console.WriteLine($"Content type: {file.ContentType}");
+
+        }
+    }
+
+    public class ComicSelection
+    {
+        public string Selection { get; set; } = string.Empty;
+        public List<string> ComicUniverses { get; set; } = new List<string>
+        {
+            "DC",
+            "Marvel",
+            "Image",
+            "Dark Horse"
+        };
+    }
+    private ComicSelection favoriteComic = new ComicSelection();
+
+    public string InputSelection { get; set; } = "Dark Horse";
+    private ComicSelection favoriteInputSelectComic = new ComicSelection();
+}
