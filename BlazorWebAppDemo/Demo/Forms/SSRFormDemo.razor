@@ -1,0 +1,35 @@
+﻿@page "/SSRFormDemo"
+@using BlazorWebAppDemo.Demo.BuiltInComponents
+<h3>SSRFormDemo</h3>
+<div style="height:100vh"></div>
+
+@* without FormName="Heroform" it will render error *@
+@* Enhance attribute, the page stays at the same scroll position *@
+<EditForm Enhance Model="@hero" OnValidSubmit="ValidSubmit" FormName="Heroform">
+    <DataAnnotationsValidator />
+    <BGSInputText Label="Name" @bind-Value="@hero.Name" />
+    <BGSInputText Label="Real name" @bind-Value="@hero.RealName" />
+
+    <div>
+        <label for="powers" class="form-label">Powers</label>
+        <InputText id="powers" class="form-control" @bind-Value="hero.Powers" />
+        <ValidationMessage For="@(()=>hero.Powers)" />
+    </div>
+
+    <button class="btn btn-success" type="submit">Submit</button>
+</EditForm>
+
+@message
+
+@code {
+    [SupplyParameterFromForm]
+    public Superhero hero { get; set; } = new();
+
+    private string message = "";
+
+    private void ValidSubmit(EditContext editcontext)
+    {
+        //Save the data
+        message = $"You just submitted {hero.Name}, who has a real name: {hero.RealName} with the powers:{hero.Powers}";
+    }
+}
