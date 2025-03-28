@@ -1,0 +1,38 @@
+﻿@using System.Linq.Expressions
+
+<h3>BGSInputText</h3>
+
+
+<div class="mb-3">
+
+    @if (Label != null)
+    {
+        <label for="@Id" class="form-label">@Label</label>
+    }
+
+    <InputText id="@Id" class="form-control"
+        Value="@Value" 
+        ValueChanged="ValueChanged" 
+        ValueExpression="ValueExpression" />
+
+    <ValidationMessage For="@ValueExpression" />
+</div>
+@code {
+
+    [Parameter]
+    public string Id  { get; set; } = Guid.NewGuid().ToString();
+
+    [Parameter]
+    public string Label { get; set; } = string.Empty;
+
+    // it will notify the edit context that the value has changed but our parameter can be called differently (name, power, itd)
+    // it is a generic approach to accept different properties but in order to do that we need to pass the expression and valuechanged
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    [Parameter]
+    public required Expression<Func<string>> ValueExpression { get; set; }
+}

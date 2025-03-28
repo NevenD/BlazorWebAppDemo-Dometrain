@@ -10,6 +10,7 @@
     <ValidationMessage For="(()=>hero.Name)" />
     <InputText @bind-Value="hero.RealName" /><br />
     <InputText @bind-Value="hero.Powers" /><br />
+    <BGSInputText Label="Test" @bind-Value="@hero.Powers" /> <br/>
 
     @* <InputText @bind-Value="hero.Powers" this is similar to line below @bind-Value will hook up Value, ValueChanged and ValueExpression by default *@
     <InputText Value="@hero.Powers" 
