@@ -1,5 +1,5 @@
 ﻿
-<button disabled="@isDisabled" @attributes="AdditionalAttributes" @onclick="OnButtonClickedAsync">Click me</button>
+<button disabled="@isDisabled" @attributes="AdditionalAttributes" @onclick="OnButtonClickedAsync">@ChildContent</button>
 
 @code {
     [Parameter(CaptureUnmatchedValues = true)] // CaptureUnmatchedValues - any attribute that is not defined (does not have matching component) in the component will be captured here
@@ -22,10 +22,13 @@
         isExcuting = true;
 
         await InvokeAsync(StateHasChanged); // it is performant and use it only when need to, it is recommended to be avoided
-        // no null cchecks needed since it is as truct
+                                            // no null cchecks needed since it is as truct
         await OnClickEvent.InvokeAsync(null);
         isExcuting = false;
 
     }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } =@<text>Click me!</text>;
 
 }

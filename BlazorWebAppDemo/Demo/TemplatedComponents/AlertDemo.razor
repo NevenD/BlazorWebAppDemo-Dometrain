@@ -1,0 +1,26 @@
+﻿@page "/AlertDemo"
+
+<h3>AlertDemo</h3>
+
+@* Something between tags is child content *@
+<Alert>
+    The Content
+</Alert>
+
+<Alert>
+    <ChildContent>
+        The content
+    </ChildContent>
+</Alert>
+
+<Alert AlertType="AlertTypeEnum.Warning">
+    The content @(1+2)
+</Alert>
+
+<MyButton>
+    Suber
+</MyButton>
+
+@code {
+    public string RandomText { get; set; } = "RandomTExt";
+}

@@ -1,0 +1,15 @@
+﻿<div class="@($"alert alert-{AlertType.ToString().ToLower()}")" role="alert">
+    @ChildContent
+</div>
+
+@code {
+    
+    // We cannot change name of ChildContent, it is a reserved name
+    // The property receiving the RenderFragment content must be named ChildContent by convention.
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = @<b>Default message</b>;
+
+
+    [Parameter]
+    public AlertTypeEnum AlertType { get; set; } = AlertTypeEnum.Primary;
+}
