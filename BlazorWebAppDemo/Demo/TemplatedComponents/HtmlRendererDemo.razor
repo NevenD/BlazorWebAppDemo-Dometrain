@@ -1,0 +1,40 @@
+﻿@page "/HtmlRendererDemo"
+<h3>HtmlRendererDemo</h3>
+
+
+
+@((MarkupString) html)
+
+@code {
+    string html; 
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        IServiceCollection services = new ServiceCollection();
+        services.AddLogging();
+
+        var serviceProvider = services.BuildServiceProvider();
+        var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+
+        using var htmlRenderer = new HtmlRenderer(serviceProvider, loggerFactory);
+
+        html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
+        {
+            // fragment that our component will render
+            RenderFragment content =@<text>Hello from the Render Message component! @(1+2)</text>;
+
+            var dictionary = new Dictionary<string, object?>
+            {
+                { "ChildContent", content }
+            };
+
+            var parameters = ParameterView.FromDictionary(dictionary);
+            // we create an output where we render our alert component
+            var output = await htmlRenderer.RenderComponentAsync<TemplatedComponents.Alert>(parameters);
+            return output.ToHtmlString();
+        });
+
+        base.OnInitialized();
+    }
+}
