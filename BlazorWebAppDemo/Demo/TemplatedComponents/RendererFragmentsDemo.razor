@@ -1,0 +1,16 @@
+﻿@page "/RendererFragmentsDemo"
+<h3>RendererFragmentsDemo</h3>
+
+
+@GetAlert(@<text> This is a alert from a method</text>, AlertTypeEnum.Danger)
+
+@RendererFragmentsStaticDemo.GetAlert(@<text> This is a alert from a static method</text>, AlertTypeEnum.Success)
+
+@code {
+
+    // if we have multiple components it is better to use render fragment component instead
+    public RenderFragment GetAlert(RenderFragment fragment, AlertTypeEnum alertType) {
+
+        return @<div class="@($"alert alert-{alertType.ToString().ToLower()}")" role="alert">@fragment</div>;
+    }
+}

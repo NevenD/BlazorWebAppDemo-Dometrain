@@ -1,0 +1,7 @@
+﻿
+@code {
+    public static RenderFragment GetAlert(RenderFragment fragment, AlertTypeEnum alertType) {
+
+        return @<div class="@($"alert alert-{alertType.ToString().ToLower()}")" role="alert">@fragment</div>;
+    }
+}
