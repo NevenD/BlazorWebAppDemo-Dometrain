@@ -1,0 +1,41 @@
+﻿@using MudBlazor
+@using System.Linq.Expressions
+@typeparam T
+
+<MudSelect 
+          Label="@Label"
+          Value="@Value"
+          ValueChanged="ValueChanged"
+          Variant="Variant.Filled"
+          For="@ValueExpression">
+    @foreach (var item in Items)
+    {
+        <MudSelectItem Value="@item">@ChildContent(item)</MudSelectItem>
+    }
+</MudSelect>
+
+@code {
+    //making code generic using typeParam T
+    // Variant="Variant.Filled" is the desing of the material desing it this scenario is filled
+    [Parameter, EditorRequired]
+    public required T Value { get; set; }
+    
+    [Parameter]
+    public EventCallback<T> ValueChanged { get; set; }
+
+    //on the component the convention is ValueExpression
+    [Parameter]
+    public Expression<Func<T>>? ValueExpression { get; set; }
+
+
+    // it is type of the object that the render fragment has access to
+    [Parameter]
+    public required RenderFragment<T> ChildContent { get; set; }
+
+    [Parameter]
+    public required IEnumerable<T> Items { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+}
+

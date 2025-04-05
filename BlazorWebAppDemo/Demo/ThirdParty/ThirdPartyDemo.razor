@@ -1,0 +1,30 @@
+﻿@page "/ThirdPartyDemo"
+@rendermode InteractiveServer
+@using BlazorWebAppDemo.Demo.BuiltInComponents
+@inject SuperheroRepository Data
+
+@using MudBlazor
+<h3>Mud Blazor Demo</h3>
+
+<MudSelect Label="SuperHero"
+    @bind-Value="@selectedHero"
+    Variant="Variant.Filled">
+    @foreach (var item in Data.GetData())
+    {
+        <MudSelectItem Value="@item">@item.Name</MudSelectItem>
+    }
+</MudSelect>
+
+<h3>Custom abstraciton of select data</h3>
+<hr />
+<BGSSelect 
+           Label="SuperHero"
+           Items="Data.GetData()"
+    @bind-Value="@selectedHero">@context.Name
+ </BGSSelect>
+    
+
+
+@code {
+    Superhero selectedHero;
+}

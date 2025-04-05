@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Sections
 
 @inherits LayoutComponentBase
-
+<MudThemeProvider @rendermode="InteractiveServer" />
+<MudPopoverProvider @rendermode="InteractiveServer" />
 <div class="page">
     <div class="sidebar">
         <NavMenu />

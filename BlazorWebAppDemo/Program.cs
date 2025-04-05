@@ -10,6 +10,7 @@ using BlazorWebAppDemo.Demo.StateService;
 using BlazorWebAppDemo.Services.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,6 +71,8 @@ builder.Services.AddScoped<IMyService, MyService>();
 
 //  Singleton - One instance shared with all users
 //builder.Services.AddSingleton<IMyService, MyService>();
+
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 
