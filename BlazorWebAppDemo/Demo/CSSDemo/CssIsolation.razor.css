@@ -1,0 +1,9 @@
+﻿
+/*::deep will tell css that it should go deeper into components*/
+::deep h3 {
+    color: blue;
+}
+
+/*h3 {
+    color: blue;
+}*/

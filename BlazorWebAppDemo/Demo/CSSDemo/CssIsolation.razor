@@ -1,0 +1,14 @@
+﻿@page "/cssisolation"
+
+<div>
+    @* if  we wrap it into div or parent html element then everythin inside this element will render ::deep css isolation *@
+    <h3>CssIsolation</h3>
+    <CssChildIsolation />
+</div>
+
+@* here isoleted css is not applied since it does not have parent element to attach to *@
+<h3>CssIsolation</h3>
+<CssChildIsolation />
+@code {
+
+}
