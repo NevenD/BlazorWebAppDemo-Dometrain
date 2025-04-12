@@ -1,0 +1,18 @@
+﻿@page "/IsolatedJavaScript"
+@rendermode InteractiveServer
+@inject IJSRuntime jsRuntime
+
+<h3>IsolatedJavaScript</h3>
+<button @onclick="ClickAsync" class="btn btn-success">Click me</button>
+
+@code {
+    IJSObjectReference jsmodule;
+    
+    public async Task ClickAsync()
+    {
+        // IJSObjectReference is a reference to a javascript
+        jsmodule = await jsRuntime.InvokeAsync<IJSObjectReference>("import", "/Demo/Javascript/IsolatedJavaScript.razor.js");
+        // invoking javascript method
+        var confirmed = await jsmodule.InvokeAsync<bool>("showConfirm", "Are you sure?");       
+    }
+}

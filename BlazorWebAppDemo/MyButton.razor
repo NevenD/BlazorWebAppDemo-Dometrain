@@ -1,4 +1,5 @@
-﻿
+﻿@inject IJSRuntime jsRuntime
+
 <button disabled="@isDisabled" @attributes="AdditionalAttributes" @onclick="OnButtonClickedAsync">@ChildContent</button>
 
 @code {
@@ -6,15 +7,23 @@
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
 
     [Parameter]
+    public string? ConfirmMessage { get; set; }
+
+    [Parameter]
     public EventCallback OnClickEvent { get; set; }
 
     private bool isExcuting = false;
     private bool isDisabled => isExcuting;
+    private bool confirmed = true;
 
     private async Task OnButtonClickedAsync() 
     {
+        if (ConfirmMessage != null)
+        {
+            confirmed = await jsRuntime.InvokeAsync<bool>("confirm", ConfirmMessage);
+        }
 
-        if (isExcuting)
+        if (isExcuting || !confirmed)
         {
             return;
         }

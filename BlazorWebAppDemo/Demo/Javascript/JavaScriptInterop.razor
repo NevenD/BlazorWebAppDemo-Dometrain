@@ -1,0 +1,14 @@
+﻿@page "/JavaScriptInterop"
+@rendermode InteractiveServer
+@inject IJSRuntime jsruntime
+<h3>JavaScriptInterop</h3>
+
+<button @onclick="ClickAsync" class="btn btn-success">Click me</button>
+
+
+@code {
+    public async Task ClickAsync()
+    {
+        var confirmed = await jsruntime.InvokeAsync<bool>("confirm", "This is a confirm dialog");
+    }
+}

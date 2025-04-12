@@ -1,0 +1,14 @@
+﻿@page "/jstostaticnet"
+@rendermode InteractiveServer
+<h3>This is a demo how to call .NET from JavaScript</h3>
+
+
+<button class="btn btn-success" onclick="callnetfromjs()">Show alert with message</button>
+
+@code {
+    [JSInvokable("NameOfTheMethod")]
+    public static Task<string> GetAMessageFromNET()
+    {
+        return Task.FromResult("This is a message from .NET");
+    }
+}
