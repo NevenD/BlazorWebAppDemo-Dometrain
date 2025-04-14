@@ -28,6 +28,7 @@
 
     public async Task TriggerDotNetInstanceMethod()
     {
+        // this particular component
         dotNetHelper = DotNetObjectReference.Create(this);
         result = await JS.InvokeAsync<string>("callreferencenetfromjs", dotNetHelper);
     }
