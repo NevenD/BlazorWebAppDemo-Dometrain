@@ -32,7 +32,7 @@
 
         await InvokeAsync(StateHasChanged); // it is performant and use it only when need to, it is recommended to be avoided
                                             // no null cchecks needed since it is as truct
-        await OnClickEvent.InvokeAsync(null);
+        await OnClickEvent.InvokeAsync();
         isExcuting = false;
 
     }

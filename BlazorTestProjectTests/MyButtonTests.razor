@@ -1,0 +1,55 @@
+@inherits TestContext
+@using Bunit
+@using BlazorWebAppDemo
+@code
+{
+    [Fact]
+    public void MyButtonTest()
+    {
+        //Arrange
+
+        Dictionary<string, object> additionalAttributes = default!;
+        string? confirmMessage = default!;
+        Action onClick = () => { };
+
+        var cut = Render(@<MyButton AdditionalAttributes="@additionalAttributes"
+                                    ConfirmMessage="@confirmMessage"
+                                        OnClickEvent="@onClick">
+        <ChildContent>
+            <b>ChildContent fragment</b>
+        </ChildContent>
+    </MyButton>
+    );
+        //Act
+
+        //Assert
+        cut.Find("button").MarkupMatches("""<button blazor:onclick="1"><b>ChildContent fragment</b></button>""");
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void MyButtonWithConfirmMessageTest(bool confirmed)
+    {
+        JSInterop.Setup<bool>("confirm", "message").SetResult(confirmed);
+        //Arrange
+        string? confirmMessage = "message";
+        bool clicked = false;
+        Action onClick = () => { clicked = true; };
+
+        var cut = Render(@<MyButton ConfirmMessage="@confirmMessage"
+                                        OnClickEvent="@onClick">
+        <ChildContent>
+            <b>ChildContent fragment</b>
+        </ChildContent>
+    </MyButton>
+    );
+        //Act
+        cut.Find("button").Click();
+        //Assert
+        cut.Find("button").MarkupMatches("""<button blazor:onclick="1"><b>ChildContent fragment</b></button>""");
+        Assert.Equal(clicked, confirmed);
+
+    }
+
+}

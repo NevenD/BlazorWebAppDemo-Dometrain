@@ -1,0 +1,19 @@
+@inherits TestContext
+@using Bunit
+@using BlazorTestProjectTests;
+@code
+{
+    [Fact]
+    public void CounterTest()
+    {
+        //Arrange
+
+
+        var cut = Render(@<Counter>
+    </Counter>
+);
+        //Act
+
+        //Assert
+    }
+}
