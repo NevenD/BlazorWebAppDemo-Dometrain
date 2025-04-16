@@ -6,7 +6,7 @@
 <button @onclick="ClickAsync" class="btn btn-success">Click me</button>
 
 @code {
-    IJSObjectReference jsmodule;
+     IJSObjectReference jsmodule = null!;
     
     public async Task ClickAsync()
     {

@@ -7,7 +7,7 @@
 @code
 {
     [Parameter] 
-    public string Json { get; set; }
+    public required string Json { get; set; }
     private string id { get; set; } = "Highchart" + Guid.NewGuid().ToString();
 
     protected override void OnParametersSet()
@@ -16,7 +16,7 @@
         StateHasChanged();
         base.OnParametersSet();
     }
-    IJSObjectReference jsmodule;
+    IJSObjectReference jsmodule = null!;
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (!string.IsNullOrEmpty(Json))
